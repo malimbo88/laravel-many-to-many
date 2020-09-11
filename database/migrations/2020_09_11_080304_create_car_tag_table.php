@@ -14,8 +14,17 @@ class CreateCarTagTable extends Migration
     public function up()
     {
         Schema::create('car_tag', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            // Pivot table to Cars table
+            $table->unsignedBigInteger("car_id");
+            $table->foreign("car_id")
+                  ->references("id")
+                  ->on("cars");
+
+            // Pivot table to Tags table
+            $table->unsignedBigInteger("tag_id");
+            $table->foreign("tag_id")
+                  ->references("id")
+                  ->on("tags");
         });
     }
 

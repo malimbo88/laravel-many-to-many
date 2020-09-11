@@ -14,7 +14,13 @@ class CreateTagsTable extends Migration
     public function up()
     {
         Schema::create('tags', function (Blueprint $table) {
+            // Preset id
             $table->id();
+
+            // Name
+            $table->string("car_body");
+
+            // Preset created_at & updated_at
             $table->timestamps();
         });
     }
