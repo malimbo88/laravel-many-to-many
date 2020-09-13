@@ -46,6 +46,14 @@
           </li>
           {{-- end Price --}}
 
+          {{-- Route to cerate --}}
+          <div class="index-to-edit">
+            <a href="{{ route("cars.edit", $car ) }}">
+              <h3>Update Car</h3>
+            </a>
+          </div>
+          {{-- end Route to cerate --}}
+
         </ul>
       </li>
     @endforeach
@@ -56,3 +64,11 @@
 
 </div>
 {{-- end Cars --}}
+
+{{-- Route to cerate --}}
+<div class="index-to-create">
+  <a href="{{ route("cars.create") }}">
+    <h3>Create Car</h3>
+  </a>
+</div>
+{{-- end Route to cerate --}}

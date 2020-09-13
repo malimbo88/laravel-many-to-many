@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 // use Car model class
 use App\Car;
 
+// use User model class
+use App\User;
+
+// use Tag model class
+use App\Tag;
+
 class CarController extends Controller
 {
     /**
@@ -29,7 +35,12 @@ class CarController extends Controller
      */
     public function create()
     {
-        //
+        $cars = Car::all();
+        $users = User::all();
+        $tags = Tag::all();
+
+        // Return to view
+        return view("cars.create", compact("cars", "users", "tags"));
     }
 
     /**
@@ -40,7 +51,34 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation
+        $request->validate([
+          "user_id" => "required|integer",
+          "manufacturer" => "required|max:255",
+          "model" => "required|max:255",
+          "engine" => "required|max:255",
+          "plate" => "required|max:255",
+          "year" => "required|integer|min:1900|max:2020",
+          "price" => "required|numeric",
+        ]);
+
+        // All data from request
+        $data = $request->all();
+
+        // Create new istance
+        $new_car = new Car();
+        $new_car->fill($data);
+
+        // Save data
+        $new_car->save();
+
+        if (isset($data["tags"])) {
+          // Sync Foreign key
+          $new_car->tags()->sync($data["tags"]);
+        }
+
+        // Redirect to view
+        return redirect()->route("cars.show", $new_car);
     }
 
     /**
@@ -61,9 +99,13 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Car $car)
     {
-        //
+      $users = User::all();
+      $tags = Tag::all();
+
+      // Return to view
+      return view("cars.edit", compact("car", "users", "tags"));
     }
 
     /**
@@ -73,9 +115,16 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Car $car)
     {
-        //
+      // All data from request
+      $data = $request->all();
+
+      // Create new istance
+      $new_car = new Car();
+
+      // Save data
+      $new_car->update();
     }
 
     /**

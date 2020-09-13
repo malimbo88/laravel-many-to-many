@@ -92,6 +92,8 @@
 
 {{-- Route to index --}}
 <div class="show-to-index">
-  <a href="{{ route("cars.index") }}">View Cars list</a>
+  <a href="{{ route("cars.index") }}">
+    <h3>View Cars list</h3>
+  </a>
 </div>
 {{-- end Route to index --}}
