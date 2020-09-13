@@ -19,7 +19,7 @@ class Car extends Model
     // Methods
     // Every Cars belongsTo only one User
     public function user() {
-      return $this->belongsTo("App\User")
+      return $this->belongsTo("App\User");
     }
 
     // Many Cars belongsTo many Tags
